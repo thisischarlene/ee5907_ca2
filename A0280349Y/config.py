@@ -44,7 +44,13 @@ dir_part2b = os.path.join(dir_results, "part2b")
 dir_part2c = os.path.join(dir_results, "part2c")
 
 
-# set random seed value; 
+# declare the provided database folder; 
+dir_database = os.path.join(dir_base, "database")
+dir_PIE = os.path.join(dir_database, "PIE")
+
+
+# set random seed value;
+#- last 2 digits based on matriculation number: A0280349Y; 
 seed = 49
 
 
