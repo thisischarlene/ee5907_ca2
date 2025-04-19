@@ -18,6 +18,9 @@
 # files provided for assignment; 
 from A0280349Y.database import *
 
-
 # for custom functions created for this assignment;
 from A0280349Y.config import *
+
+# assignment parts; 
+from A0280349Y.part1_1 import *
+from A0280349Y.part1_2a import *
