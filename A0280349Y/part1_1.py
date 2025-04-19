@@ -23,6 +23,14 @@ import random
 from A0280349Y.config import *
 #from database.PIE import *
 
+
+# settings for file saving;
+assignment_name = os.path.basename(__file__).replace(".py", "")
+#- [dir_part1_1] is for this <.py> only;
+#-- create the results folder only when needed;
+dir_thisPart = dir_part1_1
+os.makedirs(dir_thisPart, exist_ok=True)
+
 # select 25 out of the 68; 
 def select_main(seed, subjects_total=68, sample_size=25):
     # set the seed based on <config.py>; 
@@ -54,15 +62,34 @@ def select_images(subject_id, dir_PIE, count=10):
     
     return [os.path.join(folder, f) for f in random.sample(images, count)]
 
+
+def save_selection(subjects_selected, selected_images, dir_results, dir_database):
+    dir_subjects = os.path.join(dir_results, "selected_subjects.txt")
+    with open(dir_subjects, "w") as f:
+        for sid in subjects_selected:
+            f.write(f"{sid}\n")
+    
+    dir_images = os.path.join(dir_results, "selected_images.txt")
+    with open(dir_images, "w") as f: 
+        for img in selected_images:
+            f.write(f"{os.path.relpath(img, start=dir_database)}\n")
+    
+    print_with_plus(f"saved selected subjects to {dir_subjects}")
+    print_with_plus(f"saved the 10 randomly selected images to {dir_images}")
+
+    
+
 if __name__=="__main__":
     subjects_total= list(range(1, 69))
     subjects_selected = select_main(seed, subjects_total=68, sample_size=25)
-    print_with_plus(f"the 25 subjects selected are: {subjects_selected}")
+    print(f"the 25 subjects selected are: {subjects_selected}")
     
-    mock_subject = select_mock(subjects_total, subjects_selected)
-    print_with_plus(f"the mock subject selected is: {mock_subject}")
+    subjects_mock = select_mock(subjects_total, subjects_selected)
+    print(f"the mock subject selected is: {subjects_mock}")
     
-    mock_images = select_images(mock_subject, dir_PIE)
-    print_with_plus(f"the 10 random images selected are from subject {mock_subject}: ")
-    for img in mock_images:
+    selected_images = select_images(subjects_mock, dir_PIE)
+    print(f"the 10 random images selected are from subject {subjects_mock}: ")
+    for img in selected_images:
         print(f" - {os.path.relpath(img, start=dir_database)}")
+        
+    save_selection(subjects_selected, selected_images, dir_part1_1, dir_database)
