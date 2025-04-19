@@ -35,13 +35,24 @@ os.makedirs(dir_results, exist_ok=True)
 
 # from main output folder, create subfolders;
 #-- folder names are based on assignment parts; 
-dir_part1a = os.path.join(dir_results, "part1a")
-dir_part1b = os.path.join(dir_results, "part1b")
-dir_part1c = os.path.join(dir_results, "part1c")
-dir_part2a = os.path.join(dir_results, "part2a")
-dir_part2b = os.path.join(dir_results, "part2b")
-#--- part2c = comparison of 2a and 2b; 
-dir_part2c = os.path.join(dir_results, "part2c")
+dir_part1_1 = os.path.join(dir_results, "part1_1")
+dir_part1_2a = os.path.join(dir_results, "part1_2a")
+dir_part1_2b = os.path.join(dir_results, "part1_2b")
+dir_part1_2c = os.path.join(dir_results, "part1_2c")
+dir_part1_3a = os.path.join(dir_results, "part1_3a")
+dir_part1_3b = os.path.join(dir_results, "part1_3b")
+dir_part1_3c = os.path.join(dir_results, "part1_3c")
+
+dir_part2_1a = os.path.join(dir_results, "part2_1a")
+dir_part2_1b = os.path.join(dir_results, "part2_1b")
+dir_part2_2a = os.path.join(dir_results, "part2_2a")
+dir_part2_2b = os.path.join(dir_results, "part2_2b")
+dir_part2_3a = os.path.join(dir_results, "part2_3a")
+dir_part2_3b = os.path.join(dir_results, "part2_3b")
+dir_part2_3c = os.path.join(dir_results, "part2_3c")
+dir_part2_3d = os.path.join(dir_results, "part2_3d")
+dir_part2_4 = os.path.join(dir_results, "part2_4")
+
 
 
 # declare the provided database folder; 
