@@ -20,11 +20,11 @@ from A0280349Y.config import *
 def main():
     print("\n")
     print_with_star("running all scripts for EE5907 CA2 ...")
-    """
+    
     # part1 of assignment2; 
     print("randomly choosing 25 of the 68 subjects from provided database ...")
     A0280349Y.part1_1.main()
-    
+    """
     print("\nimplement PCA from scratch ...")
     A0280349Y.part1_2a.main()
     print("\napply crafted PCA function to training set with number of PCs to be 2 and 3 ...")
