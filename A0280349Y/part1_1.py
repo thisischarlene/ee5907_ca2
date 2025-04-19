@@ -19,6 +19,7 @@ import os
 import datetime
 import numpy as np 
 import matplotlib.pyplot as plt
+import matplotlib.image as mping
 import random
 from A0280349Y.config import *
 #from database.PIE import *
@@ -77,19 +78,48 @@ def save_selection(subjects_selected, selected_images, dir_results, dir_database
     print_with_plus(f"saved selected subjects to {dir_subjects}")
     print_with_plus(f"saved the 10 randomly selected images to {dir_images}")
 
+
+def plot_selected(dir_images, subject_id, dir_save=None): 
+    if len(dir_images) != 10: 
+        raise ValueError("required exact number (10) to plot the 2x5 layout")
     
+    fig, axs = plt.subplots(2, 5, figsize=(15, 6))
+    fig.suptitle(f"Randomly Selected Images from Subject {subject_id}", fontsize=16)
+    
+    for i, dir_img in enumerate(dir_images):
+        row, col = divmod(i, 5)
+        axs[row, col].imshow(mping.imread(dir_img))
+        axs[row, col].axis('off')
+        axs[row,col].set_title(os.path.basename(dir_img), fontsize=8)
+        
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    
+    if dir_save:
+        plt.savefig(dir_save, bbox_inches="tight", dpi=300)
+        print_with_plus(f"array of images saved to {dir_save}")
+        
+    plt.show()
 
 if __name__=="__main__":
+    # select 25 subjects out of the 68; 
     subjects_total= list(range(1, 69))
     subjects_selected = select_main(seed, subjects_total=68, sample_size=25)
     print(f"the 25 subjects selected are: {subjects_selected}")
     
+    # select one random subject that is not part of the 25;
     subjects_mock = select_mock(subjects_total, subjects_selected)
     print(f"the mock subject selected is: {subjects_mock}")
     
+    # select 10 images randomly from a random subject that is not part of the 25;
     selected_images = select_images(subjects_mock, dir_PIE)
     print(f"the 10 random images selected are from subject {subjects_mock}: ")
     for img in selected_images:
         print(f" - {os.path.relpath(img, start=dir_database)}")
-        
-    save_selection(subjects_selected, selected_images, dir_part1_1, dir_database)
+
+    # save the screen output into a <.txt> file;
+    save_selection(subjects_selected, selected_images, dir_thisPart, dir_database)
+    
+    # create name for layout of the 10 selected images; 
+    dir_savedImages = os.path.join(dir_thisPart, f"subject{subjects_mock}_grid.png")
+    # plot the 10 selected images; 
+    plot_selected(selected_images, subjects_mock, dir_save=dir_savedImages)
