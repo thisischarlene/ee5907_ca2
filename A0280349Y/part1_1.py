@@ -175,6 +175,9 @@ if __name__=="__main__":
     images_test.extend(dir_test_mock)
     
     # save the overall split data into <.csv>; 
-    save_split(images_train, os.path.join(dir_thisPart, "images_train.csv"))
-    save_split(images_test, os.path.join(dir_thisPart, "images_test.csv"))
+    save_split(images_train, os.path.join(dir_thisPart, "images_train.csv"), dir_thisPart)
+    save_split(images_test, os.path.join(dir_thisPart, "images_test.csv"), dir_thisPart)
+    
+    print_with_plus(f"total training images: {len(images_train)}")
+    print_with_plus(f"total testing images: {len(images_test)}")
     
