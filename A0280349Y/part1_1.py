@@ -174,3 +174,7 @@ if __name__=="__main__":
     images_train.extend(dir_train_mock)
     images_test.extend(dir_test_mock)
     
+    # save the overall split data into <.csv>; 
+    save_split(images_train, os.path.join(dir_thisPart, "images_train.csv"))
+    save_split(images_test, os.path.join(dir_thisPart, "images_test.csv"))
+    
