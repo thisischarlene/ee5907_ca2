@@ -172,7 +172,8 @@ if __name__=="__main__":
     # do the split_7030 for the 10 imgs -- to retain the img file dir in the 25 subjects; 
     random.seed(seed)
     random.shuffle(selected_images)
-    label_mock = max(subjects_selected) +1
+    label_mock = max(subjects_total) +1
+    print_with_plus(f"mock subject label: {label_mock}")
     dir_train_mock = [(img, label_mock) for img in selected_images[:7]]
     dir_test_mock = [(img, label_mock) for img in selected_images[7:]]
     
