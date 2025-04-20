@@ -114,10 +114,12 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     ax.set_xlim(-2000, 3600)
     ax.set_ylim(-2300, 2300)
     ax.set_zlim(-1500, 1300)
-    
+    """
+    #- to find the actual limits of the plot in 3d;
     print(f"xlimits (PC1): {X_pca[:, 0].min():.2f}, {X_pca[:, 0].max():.2f}")
     print(f"ylimits (PC2): {X_pca[:, 1].min():.2f}, {X_pca[:, 1].max():.2f}")
     print(f"zlimits (PC3): {X_pca[:, 2].min():.2f}, {X_pca[:, 2].max():.2f}")
+    """
 
 
     plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
