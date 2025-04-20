@@ -115,8 +115,8 @@ def split_7030(subject_id, dir_PIE, ratio_train=0.7, seed=seed):
     random.shuffle(images_all)
     
     #- assign the split ratio;
-    #-- calculates no. of images -- no need to round up cause output =/= float;
-    idx_split = int(len(images_all) * ratio_train)
+    #-- calculates no. of images -- use round cause python is stupid;
+    idx_split = round(len(images_all) * ratio_train)
     dir_train = [(img, subject_id) for img in images_all[:idx_split]]
     dir_test = [(img, subject_id) for img in images_all[idx_split:]]
     return dir_train, dir_test
@@ -154,13 +154,24 @@ if __name__=="__main__":
     # plot the 10 selected images; 
     plot_selected(selected_images, subjects_mock, dir_save=dir_savedImages)
     
+    
+    # check if every subject has 170 images ; 
+    print_with_plus("Checking number of images in each selected subject folder:")
+    for sid in subjects_selected:
+        folder = os.path.join(dir_PIE, str(sid))
+        all_images = [f for f in os.listdir(folder) if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+        print(f"Subject {sid}: {len(all_images)} images")
+        
+
     # split the selected images into training and testing sets;
     images_train = []
     images_test = [] 
     
-    # for PIE subjects; 
+    # for PIE subjects;
+    print_with_plus("Checking each subject split:") 
     for sid in subjects_selected: 
         train, test = split_7030(sid, dir_PIE, seed=seed)
+        print(f"Subject {sid}: train = {len(train)}, test = {len(test)}, total = {len(train) + len(test)}")
         images_train.extend(train)
         images_test.extend(test)
     
