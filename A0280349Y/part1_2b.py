@@ -72,7 +72,7 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
         plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=30)
         
     idx_mine = y == my_label
-    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
+    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=10, label=f"Subject {my_label}")
     plt.title(f"PCA Projection (2D, p = {p}) with Subject {my_label} Highlighted")
     plt.xlabel("PC1")
     plt.ylabel("PC2")
@@ -103,7 +103,7 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
         plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=30)
         
     idx_mine = y == my_label
-    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
+    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=10, label=f"Subject {my_label}")
     ax.set_title(f"PCA Projection (3D, p = {p}) with Subject {my_label} Highlighted")
     ax.set_xlabel("PC1")
     ax.set_ylabel("PC2")
