@@ -69,7 +69,7 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
     norm = mcolors.Normalize(vmin=0, vmax=n_classes-1)
     for i, label in enumerate(unique_labels):
         idx = y == label
-        plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=10)
+        plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=20)
         
     idx_mine = y == my_label
     plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
@@ -87,7 +87,7 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
         
 
 def plot_3d_pca(X_pca, y, my_label="", p=""): 
-    fig = plt.figure(figsize=(10, 6))
+    fig = plt.figure(figsize=(14, 10))
     ax = fig.add_subplot(111, projection='3d')
     # find all the labels for the selected subjects;
     unique_labels = np.unique(y)
@@ -100,7 +100,7 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     norm = mcolors.Normalize(vmin=0, vmax=n_classes-1)
     for i, label in enumerate(unique_labels):
         idx = y == label
-        plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=10)
+        plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=20)
         
     idx_mine = y == my_label
     plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
@@ -109,9 +109,7 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     ax.set_ylabel("PC2")
     ax.set_zlabel("PC3")
     #-rescale so that it doesnt look congested; 
-    ax.auto_scale_xyz([X_pca[:, 0].min(), X_pca[:, 0].max()],
-                  [X_pca[:, 1].min(), X_pca[:, 1].max()],
-                  [X_pca[:, 2].min(), X_pca[:, 2].max()])
+    ax.view_init(elev=30, azim=45)
     plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
     plt.grid(True)
     plt.subplots_adjust(right=0.8)
