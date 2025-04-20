@@ -72,7 +72,7 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
         plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=20)
         
     idx_mine = y == my_label
-    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
+    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color='black', marker='x', s=100, label=f"Subject {my_label}")
     plt.title(f"PCA Projection (2D, p = {p}) with Subject {my_label} Highlighted")
     plt.xlabel("PC1")
     plt.ylabel("PC2")
@@ -87,7 +87,7 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
         
 
 def plot_3d_pca(X_pca, y, my_label="", p=""): 
-    fig = plt.figure(figsize=(16, 12))
+    fig = plt.figure(figsize=(16, 9))
     ax = fig.add_subplot(111, projection='3d')
     # find all the labels for the selected subjects;
     unique_labels = np.unique(y)
@@ -103,13 +103,13 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
         plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=20)
         
     idx_mine = y == my_label
-    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
+    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color='black', marker='x', s=100, label=f"Subject {my_label}")
     ax.set_title(f"PCA Projection (3D, p = {p}) with Subject {my_label} Highlighted")
     ax.set_xlabel("PC1")
     ax.set_ylabel("PC2")
     ax.set_zlabel("PC3")
     #-rescale so that it doesnt look congested; 
-    ax.view_init(elev=25, azim=45)
+    ax.view_init(elev=15, azim=15)
     ax.auto_scale_xyz(X_pca[:, 0], X_pca[:, 1], X_pca[:, 2])   
     ax.set_xlim(-2000, 3600)
     ax.set_ylim(-2300, 2300)
