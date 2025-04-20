@@ -136,18 +136,21 @@ if __name__=="__main__":
     subjects_selected = select_main(seed, subjects_total=68, sample_size=25)
     print(f"the 25 subjects selected are: {subjects_selected}")
     
+    
     # select one random subject that is not part of the 25;
     subjects_mock = select_mock(subjects_total, subjects_selected)
     print(f"the mock subject selected is: {subjects_mock}")
+    
     
     # select 10 images randomly from a random subject that is not part of the 25;
     selected_images = select_images(subjects_mock, dir_PIE)
     print(f"the 10 random images selected are from subject {subjects_mock}: ")
     for img in selected_images:
         print(f" - {os.path.relpath(img, start=dir_database)}")
-
-    # save the screen output into a <.txt> file;
+        
+    #- save the screen output into a <.txt> file;
     save_selection(subjects_selected, selected_images, dir_thisPart, dir_database)    
+    
     
     # check if every subject has 170 images ; 
     print_with_plus("Checking number of images in each selected subject folder:")
@@ -161,7 +164,7 @@ if __name__=="__main__":
     images_train = []
     images_test = [] 
     
-    # for PIE subjects;
+    #- for PIE subjects;
     print_with_plus("Checking each subject split:") 
     for sid in subjects_selected: 
         train, test = split_7030(sid, dir_PIE, seed=seed)
@@ -169,26 +172,54 @@ if __name__=="__main__":
         images_train.extend(train)
         images_test.extend(test)
     
-    # do the split_7030 for the 10 imgs -- to retain the img file dir in the 25 subjects; 
+    #- do the split_7030 for the 10 imgs -- to retain the img file dir in the 25 subjects; 
+    #-- use the same seed for randomisation; 
     random.seed(seed)
     random.shuffle(selected_images)
+    #-- use label outside of total number; 
     label_mock = max(subjects_total) +1
     print_with_plus(f"mock subject label: {label_mock}")
     dir_train_mock = [(img, label_mock) for img in selected_images[:7]]
     dir_test_mock = [(img, label_mock) for img in selected_images[7:]]
-    
+    #-- add on to existing list; 
     images_train.extend(dir_train_mock)
     images_test.extend(dir_test_mock)
     
-    # save the overall split data into <.csv>; 
+    #- save the overall split data into <.csv>; 
     save_split(images_train, os.path.join(dir_thisPart, "images_train.csv"), dir_thisPart)
     save_split(images_test, os.path.join(dir_thisPart, "images_test.csv"), dir_thisPart)
-    
+    #-- verbose; 
     print_with_plus(f"total training images: {len(images_train)}")
     print_with_plus(f"total testing images: {len(images_test)}")
     
     
-    # create name for layout of the 10 selected images; 
+    # convert the images to X_train and y_train for <part1_2b.py>;
+    X_train = []
+    y_train = []
+    
+    #- loop through each image in the training dataset;
+    for path, label in images_train:
+        img = mping.imread(path)
+        if img.ndim == 3: #- convert to grayscale;
+            img = img.mean(axis=-1)
+        #-- flatten image to get the 1D, 1024-dimension vector;
+        X_train.append(img.flatten())
+        y_train.append(label)
+    
+    #- save the data as a matrix; 
+    X_train = np.array(X_train)
+    y_train = np.array(y_train)
+    
+    #- save as binary file,, <.npy>, for other assignment parts; 
+    np.save(os.path.join(dir_thisPart, "X_train.npy"), X_train)
+    np.save(os.path.join(dir_thisPart, "y_train.npy"), y_train)
+    #-- verbose; 
+    print_with_plus(f"saved X_train with shape {X_train.shape}")
+    print_with_plus(f"saved y_train with shape {y_train.shape}")
+    
+    
+    # put right at the bottom because plot func will stop funcs from running till plot closes;
+    # create file name for layout of the 10 selected images; 
     dir_savedImages = os.path.join(dir_thisPart, f"subject{subjects_mock}_grid.png")
     # plot the 10 selected images; 
     plot_selected(selected_images, subjects_mock, dir_save=dir_savedImages)
