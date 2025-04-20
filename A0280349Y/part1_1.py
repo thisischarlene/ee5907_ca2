@@ -128,9 +128,9 @@ def save_split(label_images, file_output, dir_results):
         for path, label in label_images:
             dir_rel = os.path.relpath(path, start=dir_results)
             f.write(f"{dir_rel}, {label}\n") 
-    
 
-if __name__=="__main__":
+
+def main():
     # select 25 subjects out of the 68; 
     subjects_total= list(range(1, 69))
     subjects_selected = select_main(seed, subjects_total=68, sample_size=25)
@@ -223,4 +223,9 @@ if __name__=="__main__":
     dir_savedImages = os.path.join(dir_thisPart, f"subject{subjects_mock}_grid.png")
     # plot the 10 selected images; 
     plot_selected(selected_images, subjects_mock, dir_save=dir_savedImages)
+    
+
+if __name__=="__main__":
+    main()
+    
     
