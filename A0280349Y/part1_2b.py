@@ -108,6 +108,10 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     ax.set_xlabel("PC1")
     ax.set_ylabel("PC2")
     ax.set_zlabel("PC3")
+    #-rescale so that it doesnt look congested; 
+    ax.auto_scale_xyz([X_pca[:, 0].min(), X_pca[:, 0].max()],
+                  [X_pca[:, 1].min(), X_pca[:, 1].max()],
+                  [X_pca[:, 2].min(), X_pca[:, 2].max()])
     plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
     plt.grid(True)
     plt.subplots_adjust(right=0.8)
@@ -135,17 +139,8 @@ def main():
     #- plot the pca results, highlighting the mock_subject; 
     plot_2d_pca(X_pca_2d, y_train, 69, 2)
     
-    #- apply PCA with p=3; 
-    _, X_pca_2d = my_pca(X_train, p=3)
-    plot_2d_pca(X_pca_2d, y_train, 69, 3)
-    
     
     # plot the 3d pca; 
-    #- apply PCA with p=2; 
-    _, X_pca_3d = my_pca(X_train, p=2)
-    #- plot the pca results, highlighting the mock_subject; 
-    plot_3d_pca(X_pca_3d, y_train, 69, 2)
-    
     #- apply PCA with p=3; 
     _, X_pca_3d = my_pca(X_train, p=3)
     plot_3d_pca(X_pca_3d, y_train, 69, 3)
