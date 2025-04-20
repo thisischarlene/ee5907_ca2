@@ -22,7 +22,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import random
 from A0280349Y.config import *
-from A0280349Y import *
+from A0280349Y.part1_1 import *
+from A0280349Y.part1_2a import *
 
 
 # settings for file saving;
@@ -42,12 +43,17 @@ def visualise_eignfaces(eigvecs, num_faces, title_prefix=""):
         plt.colorbar()
         plt.show()
 
-
+def main():
+    X_train = np.load(os.path.join(dir_part1_1, "X_train.npy"))
+    y_train = np.load(os.path.join(dir_part1_1, "y_train.npy"))
+    
+    p=2
+    eigvecs_2, _ = my_pca(X_train, p=p)
+    visualise_eignfaces(eigvecs_2, num_faces=p, title_prefix="PCA (p={num_faces})")
 
 if __name__=="__main__":
+    main()
     """
     eigvecs_top, _ = my_pca(images_train, 3)
     visualise_eignfaces(eigvecs_top, num_faces=3, title_prefix="PCA")
     """
-    
-    print(images_train.shape)
