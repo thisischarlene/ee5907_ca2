@@ -121,7 +121,6 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     print(f"zlimits (PC3): {X_pca[:, 2].min():.2f}, {X_pca[:, 2].max():.2f}")
     """
 
-
     plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
     plt.grid(True)
     plt.subplots_adjust(right=0.8)
