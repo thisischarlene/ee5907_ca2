@@ -50,4 +50,9 @@ def my_pca(X, p):
     X_pca = np.dot(X_centered, eigvecs_top)
     return  eigvecs_top, X_pca 
 
-# if __name__=="__main__":
+
+def main():
+    print("PCA function, {my_pca}, has been defined ...")
+
+if __name__=="__main__":
+    main()
