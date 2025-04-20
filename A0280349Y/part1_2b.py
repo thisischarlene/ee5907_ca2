@@ -109,7 +109,7 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     ax.set_ylabel("PC2")
     ax.set_zlabel("PC3")
     #-rescale so that it doesnt look congested; 
-    ax.view_init(elev=15, azim=15)
+    ax.view_init(elev=40, azim=45)
     ax.auto_scale_xyz(X_pca[:, 0], X_pca[:, 1], X_pca[:, 2])   
     ax.set_xlim(-2000, 3600)
     ax.set_ylim(-2300, 2300)
