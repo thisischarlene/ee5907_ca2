@@ -31,11 +31,11 @@ dir_thisPart = dir_part1_2a
 os.makedirs(dir_thisPart, exist_ok=True)
 
 def my_pca(X, p): 
-    # center the data by subtracting the mean; 
+    # centre the data by subtracting the mean; 
     X_mean = np.mean(X, axis=0)
     X_centered = X - X_mean 
     
-    # compute co-varaiance matrix;
+    # compute co-variance matrix;
     matrix_cov = np.cov(X_centered, rowvar=False)
     
     # compute eigen decomposition based on co-variance matrix;
