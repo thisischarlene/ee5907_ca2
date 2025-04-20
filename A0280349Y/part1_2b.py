@@ -128,7 +128,7 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     plt_name = f"PCA_3D_Subject{my_label}_p{X_pca.shape[1]}.png"
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"3D PCA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
-    plt.show()
+    #plt.show()
 
 def main():
     # load the data from <part1_1.py> 
