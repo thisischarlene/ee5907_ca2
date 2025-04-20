@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mping
 import random
 from A0280349Y.config import *
-#from database.PIE import *
+import csv
 
 
 # settings for file saving;
@@ -64,6 +64,7 @@ def select_images(subject_id, dir_PIE, count=10):
     return [os.path.join(folder, f) for f in random.sample(images, count)]
 
 
+# save the randomly selected subjects + images into a <.txt>;
 def save_selection(subjects_selected, selected_images, dir_results, dir_database):
     dir_subjects = os.path.join(dir_results, "selected_subjects.txt")
     with open(dir_subjects, "w") as f:
@@ -79,6 +80,7 @@ def save_selection(subjects_selected, selected_images, dir_results, dir_database
     print_with_plus(f"saved the 10 randomly selected images to {dir_images}")
 
 
+# plot the 10 randomly selected images for report;
 def plot_selected(dir_images, subject_id, dir_save=None): 
     if len(dir_images) != 10: 
         raise ValueError("required exact number (10) to plot the 2x5 layout")
@@ -99,6 +101,27 @@ def plot_selected(dir_images, subject_id, dir_save=None):
         print_with_plus(f"array of images saved to {dir_save}")
         
     plt.show()
+    
+
+# split selected images into 70/30 for training and testing;
+def split_7030(subject_id, dir_PIE, ratio_train=0.7, seed=seed):
+    #- def folder to find the images -- based on <config.py>;
+    folder = os.path.join(dir_PIE, str(subject_id))
+    images_all = [os.path.join(folder, f) for f in os.listdir(folder)
+                  if f.lower().endswith('.jpg') or f.lower().endswith('.jpeg')]
+    
+    #- use random to split the images; 
+    random.seed(seed)
+    random.shuffle(images_all)
+    
+    #- assign the split ratio;
+    #-- calculates no. of images -- no need to round up cause output =/= float;
+    idx_split = int(len(images_all) * ratio_train)
+    dir_train = [(img, subject_id) for img in images_all[:idx_split]]
+    dir_test = [(img, subject_id) for img in images_all[idx_split:]]
+    return dir_train, dir_test
+    
+    
 
 if __name__=="__main__":
     # select 25 subjects out of the 68; 
@@ -123,3 +146,14 @@ if __name__=="__main__":
     dir_savedImages = os.path.join(dir_thisPart, f"subject{subjects_mock}_grid.png")
     # plot the 10 selected images; 
     plot_selected(selected_images, subjects_mock, dir_save=dir_savedImages)
+    
+    # split the selected images into training and testing sets;
+    images_train = []
+    images_test = [] 
+    
+    # for PIE subjects; 
+    for sid in subjects_selected: 
+        train, test = split_7030(sid, dir_PIE, seed=seed)
+        images_train.extend(train)
+        images_test.extend(test)
+        
