@@ -86,6 +86,37 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
     plt.show()
         
 
+def plot_3d_pca(X_pca, y, my_label="", p=""): 
+    fig = plt.figure(figsize=(10, 6))
+    ax = fig.add_subplot(111, projection='3d')
+    # find all the labels for the selected subjects;
+    unique_labels = np.unique(y)
+    
+    # make sure each class is using a different colour; 
+    #- get number of classes; 
+    n_classes = len(unique_labels)
+    #- generate the colourmap with unique colours for the classes; 
+    cmap = cm.get_cmap('nipy_spectral', n_classes)
+    norm = mcolors.Normalize(vmin=0, vmax=n_classes-1)
+    for i, label in enumerate(unique_labels):
+        idx = y == label
+        plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=30)
+        
+    idx_mine = y == my_label
+    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
+    ax.set_title(f"PCA Projection (3D, p = {p}) with Subject {my_label} Highlighted")
+    ax.set_xlabel("PC1")
+    ax.set_ylabel("PC2")
+    ax.set_zlabel("PC3")
+    plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
+    plt.grid(True)
+    plt.subplots_adjust(right=0.8)
+    plt.tight_layout()
+    plt_name = f"PCA_3D_Subject{my_label}_p{X_pca.shape[1]}.png"
+    plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
+    print(f"3D PCA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
+    plt.show()
+
 def main():
     # load the data from <part1_1.py> 
     X_train = np.load(os.path.join(dir_part1_1, "X_train.npy"))
@@ -107,6 +138,17 @@ def main():
     #- apply PCA with p=3; 
     _, X_pca_2d = my_pca(X_train, p=3)
     plot_2d_pca(X_pca_2d, y_train, 69, 3)
+    
+    
+    # plot the 3d pca; 
+    #- apply PCA with p=2; 
+    _, X_pca_3d = my_pca(X_train, p=2)
+    #- plot the pca results, highlighting the mock_subject; 
+    plot_3d_pca(X_pca_3d, y_train, 69, 2)
+    
+    #- apply PCA with p=3; 
+    _, X_pca_3d = my_pca(X_train, p=3)
+    plot_3d_pca(X_pca_3d, y_train, 69, 3)
 
 if __name__=="__main__":
     main()
