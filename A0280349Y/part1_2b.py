@@ -48,7 +48,7 @@ def visualise_eigenfaces(eigvecs, num_faces, title_prefix=""):
         plt_name = f"{title_prefix}_eigenface_{i+1}.png"
         plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
         print(f"Eigenfaces Plot {plt_name} saved in {dir_thisPart} ... ")
-        plt.show()
+        #plt.show()
 
 
 def plot_eigenfaces(X_train, p):
@@ -83,11 +83,11 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
     plt_name = f"PCA_2D_Subject{my_label}_p{X_pca.shape[1]}.png"
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"2D PCA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
-    plt.show()
+    #plt.show()
         
 
 def plot_3d_pca(X_pca, y, my_label="", p=""): 
-    fig = plt.figure(figsize=(14, 10))
+    fig = plt.figure(figsize=(10, 6))
     ax = fig.add_subplot(111, projection='3d')
     # find all the labels for the selected subjects;
     unique_labels = np.unique(y)
@@ -109,7 +109,7 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     ax.set_ylabel("PC2")
     ax.set_zlabel("PC3")
     #-rescale so that it doesnt look congested; 
-    ax.view_init(elev=30, azim=45)
+    ax.view_init(elev=15, azim=45)
     plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
     plt.grid(True)
     plt.subplots_adjust(right=0.8)

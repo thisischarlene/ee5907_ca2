@@ -100,7 +100,7 @@ def plot_selected(dir_images, subject_id, dir_save=None):
         plt.savefig(dir_save, bbox_inches="tight", dpi=300)
         print_with_plus(f"array of images saved to {dir_save}")
         
-    plt.show()
+    #plt.show()
     
 
 # split selected images into 70/30 for training and testing;
