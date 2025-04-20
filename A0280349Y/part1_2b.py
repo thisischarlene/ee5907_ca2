@@ -43,10 +43,29 @@ def visualise_eigenfaces(eigvecs, num_faces, title_prefix=""):
         plt.colorbar()
         plt.show()
 
+
 def plot_eigenfaces(X_train, p):
     eigvecs_top, _ = my_pca(X_train, p=p)
     visualise_eigenfaces(eigvecs_top, num_faces=p, title_prefix=f"PCA (p={p})")
     
+
+def plot_2d_pca(X_pca, y, my_label=""):
+    plt.figure(figsize=(10, 6))
+    unique_labels = np.unique(y)
+    for label in unique_labels:
+        idx = y == label
+        plt.scatter(X_pca[idx, 0], X_pca[idx, 1], label=f"Class {label}", alpha=0.6, s=30)
+        
+    idx_mine = y == my_label
+    plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
+    plt.title(f"PCA Projection (2D) with Subject {my_label} Highlighted")
+    plt.xlabel("PC1")
+    plt.ylabel("PC2")
+    plt.legend(loc='best', fontsize='small', markerscale=1.5)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+        
 
 def main():
     # load the data from <part1_1.py> 
@@ -58,6 +77,17 @@ def main():
     plot_eigenfaces(X_train, 2)
     #- when p = 3, 
     plot_eigenfaces(X_train, 3)
+    
+    
+    # plot the 2d pca; 
+    #- apply PCA with p=2; 
+    _, X_pca_2d = my_pca(X_train, p=2)
+    #- plot the pca results, highlighting the mock_subject; 
+    plot_2d_pca(X_pca_2d, y_train, 69)
+    
+    #- apply PCA with p=3; 
+    _, X_pca_2d = my_pca(X_train, p=3)
+    plot_2d_pca(X_pca_2d, y_train, 69)
 
 if __name__=="__main__":
     main()
