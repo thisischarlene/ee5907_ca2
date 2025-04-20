@@ -156,4 +156,14 @@ if __name__=="__main__":
         train, test = split_7030(sid, dir_PIE, seed=seed)
         images_train.extend(train)
         images_test.extend(test)
-        
+    
+    # do the split_7030 for the 10 imgs -- to retain the img file dir in the 25 subjects; 
+    random.seed(seed)
+    random.shuffle(selected_images)
+    label_mock = max(subjects_selected) +1
+    dir_train_mock = [(img, label_mock) for img in selected_images[:7]]
+    dir_test_mock = [(img, label_mock) for img in selected_images[7:]]
+    
+    images_train.extend(dir_train_mock)
+    images_test.extend(dir_test_mock)
+    
