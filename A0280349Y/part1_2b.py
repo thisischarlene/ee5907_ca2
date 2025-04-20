@@ -38,22 +38,27 @@ def visualise_eignfaces(eigvecs, num_faces, title_prefix=""):
         # size of image is 32x32;
         eigface = eigvecs[:, 1].reshape(32, 32)
         plt.imshow(eigface, cmap="gray")
-        plt.title(f"Visualising Eigenface {i+1}")
+        plt.title(f"{title_prefix} Visualising Eigenface {i+1}")
         plt.axis('off')
         plt.colorbar()
         plt.show()
 
 def main():
+    # load the data from <part1_1.py> 
     X_train = np.load(os.path.join(dir_part1_1, "X_train.npy"))
     y_train = np.load(os.path.join(dir_part1_1, "y_train.npy"))
     
+    # when p = 2, 
     p=2
     eigvecs_2, _ = my_pca(X_train, p=p)
-    visualise_eignfaces(eigvecs_2, num_faces=p, title_prefix="PCA (p={num_faces})")
+    visualise_eignfaces(eigvecs_2, num_faces=p, title_prefix="PCA (p={p})")
+    
+    
+    # when p = 3, 
+    p=3
+    eigvecs_3, _ = my_pca(X_train, p=p)
+    visualise_eignfaces(eigvecs_3, num_faces=p, title_prefix="PCA (p={p})")
 
 if __name__=="__main__":
     main()
-    """
-    eigvecs_top, _ = my_pca(images_train, 3)
-    visualise_eignfaces(eigvecs_top, num_faces=3, title_prefix="PCA")
-    """
+ 
