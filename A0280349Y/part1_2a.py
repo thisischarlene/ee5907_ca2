@@ -37,7 +37,7 @@ def my_pca(X, p):
     
     # compute co-variance matrix;
     matrix_cov = np.cov(X_centered, rowvar=False)
-    
+
     # compute eigen decomposition based on co-variance matrix;
     eigvals, eigvecs = np.linalg.eigh(matrix_cov)
     
