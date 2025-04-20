@@ -147,13 +147,7 @@ if __name__=="__main__":
         print(f" - {os.path.relpath(img, start=dir_database)}")
 
     # save the screen output into a <.txt> file;
-    save_selection(subjects_selected, selected_images, dir_thisPart, dir_database)
-    
-    # create name for layout of the 10 selected images; 
-    dir_savedImages = os.path.join(dir_thisPart, f"subject{subjects_mock}_grid.png")
-    # plot the 10 selected images; 
-    plot_selected(selected_images, subjects_mock, dir_save=dir_savedImages)
-    
+    save_selection(subjects_selected, selected_images, dir_thisPart, dir_database)    
     
     # check if every subject has 170 images ; 
     print_with_plus("Checking number of images in each selected subject folder:")
@@ -191,4 +185,10 @@ if __name__=="__main__":
     
     print_with_plus(f"total training images: {len(images_train)}")
     print_with_plus(f"total testing images: {len(images_test)}")
+    
+    
+    # create name for layout of the 10 selected images; 
+    dir_savedImages = os.path.join(dir_thisPart, f"subject{subjects_mock}_grid.png")
+    # plot the 10 selected images; 
+    plot_selected(selected_images, subjects_mock, dir_save=dir_savedImages)
     
