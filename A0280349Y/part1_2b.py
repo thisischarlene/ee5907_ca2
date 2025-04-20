@@ -33,7 +33,7 @@ assignment_name = os.path.basename(__file__).replace(".py", "")
 dir_thisPart = dir_part1_2b
 os.makedirs(dir_thisPart, exist_ok=True)
 
-def visualise_eignfaces(eigvecs, num_faces, title_prefix=""):
+def visualise_eigenfaces(eigvecs, num_faces, title_prefix=""):
     for i in range(num_faces):
         # size of image is 32x32;
         eigface = eigvecs[:, 1].reshape(32, 32)
@@ -43,21 +43,21 @@ def visualise_eignfaces(eigvecs, num_faces, title_prefix=""):
         plt.colorbar()
         plt.show()
 
+def plot_eigenfaces(X_train, p):
+    eigvecs_top, _ = my_pca(X_train, p=p)
+    visualise_eigenfaces(eigvecs_top, num_faces=p, title_prefix=f"PCA (p={p})")
+    
+
 def main():
     # load the data from <part1_1.py> 
     X_train = np.load(os.path.join(dir_part1_1, "X_train.npy"))
     y_train = np.load(os.path.join(dir_part1_1, "y_train.npy"))
     
-    # when p = 2, 
-    p=2
-    eigvecs_2, _ = my_pca(X_train, p=p)
-    visualise_eignfaces(eigvecs_2, num_faces=p, title_prefix=f"PCA (p={p})")
-    
-    
-    # when p = 3, 
-    p=3
-    eigvecs_3, _ = my_pca(X_train, p=p)
-    visualise_eignfaces(eigvecs_3, num_faces=p, title_prefix=f"PCA (p={p})")
+    # plot the eigenfaces; 
+    #- when p = 2, 
+    plot_eigenfaces(X_train, 2)
+    #- when p = 3, 
+    plot_eigenfaces(X_train, 3)
 
 if __name__=="__main__":
     main()
