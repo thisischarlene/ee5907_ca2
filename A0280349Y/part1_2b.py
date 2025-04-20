@@ -45,8 +45,9 @@ def visualise_eigenfaces(eigvecs, num_faces, title_prefix=""):
         plt.colorbar()
         plt.tight_layout()
         #-save the plot;
-        plot_name = f"{title_prefix}_eigenface_{i+1}.png"
-        plt.savefig(os.path.join(dir_thisPart, plot_name), dpi=300, bbox_inches="tight")
+        plt_name = f"{title_prefix}_eigenface_{i+1}.png"
+        plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
+        print(f"Eigenfaces Plot {plt_name} saved in {dir_thisPart} ... ")
         plt.show()
 
 
@@ -79,7 +80,9 @@ def plot_2d_pca(X_pca, y, my_label=""):
     plt.grid(True)
     plt.subplots_adjust(right=0.8)
     plt.tight_layout()
-    plt.savefig(os.path.join(dir_thisPart, f"PCA_2D_Subject{my_label}_p{X_pca.shape[1]}.png"), dpi=300, bbox_inches="tight")
+    plt_name = f"PCA_2D_Subject{my_label}_p{X_pca.shape[1]}.png"
+    plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
+    print(f"2D PCA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
     plt.show()
         
 
