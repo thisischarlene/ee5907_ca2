@@ -23,8 +23,15 @@ import random
 from A0280349Y.config import *
 
 
+# settings for file saving;
+assignment_name = os.path.basename(__file__).replace(".py", "")
+#- [dir_part1_2a] is for this <.py> only;
+#-- create the results folder only when needed;
+dir_thisPart = dir_part1_2a
+os.makedirs(dir_thisPart, exist_ok=True)
+
 def my_pca(X, p): 
-    # center the data; 
+    # center the data by subtracting the mean; 
     X_mean = np.mean(X, axis=0)
     X_centered = X - X_mean 
     
@@ -36,15 +43,11 @@ def my_pca(X, p):
     
     # sort eigenvectors by descending eignvalues to keep top p;  
     idx_sorted = np.argsort(eigvals)[::-1] 
-    eigvecs_sorted = eigvecs[:, idx_sorted]
+    eigvecs_top = eigvecs[:, idx_sorted[:p]]
     
-    # select the top p eigenvectors; 
-    W_p = eigvecs_sorted[:, p]
     
-    # project the data; 
-    X_pca = X_centered @ W_p
-    return W_p, X_pca 
-
-    
+    # dot multiply the X_centered with the top p to get PCA-transformed data; 
+    X_pca = np.dot(X_centered, eigvecs_top)
+    return  eigvecs_top, X_pca 
 
 # if __name__=="__main__":
