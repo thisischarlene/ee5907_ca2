@@ -51,13 +51,13 @@ def main():
     # when p = 2, 
     p=2
     eigvecs_2, _ = my_pca(X_train, p=p)
-    visualise_eignfaces(eigvecs_2, num_faces=p, title_prefix="PCA (p={p})")
+    visualise_eignfaces(eigvecs_2, num_faces=p, title_prefix=f"PCA (p={p})")
     
     
     # when p = 3, 
     p=3
     eigvecs_3, _ = my_pca(X_train, p=p)
-    visualise_eignfaces(eigvecs_3, num_faces=p, title_prefix="PCA (p={p})")
+    visualise_eignfaces(eigvecs_3, num_faces=p, title_prefix=f"PCA (p={p})")
 
 if __name__=="__main__":
     main()
