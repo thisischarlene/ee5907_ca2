@@ -20,6 +20,8 @@ import datetime
 import numpy as np 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+import matplotlib.colors as mcolors
 import random
 from A0280349Y.config import *
 from A0280349Y.part1_1 import *
@@ -36,11 +38,15 @@ os.makedirs(dir_thisPart, exist_ok=True)
 def visualise_eigenfaces(eigvecs, num_faces, title_prefix=""):
     for i in range(num_faces):
         # size of image is 32x32;
-        eigface = eigvecs[:, 1].reshape(32, 32)
+        eigface = eigvecs[:, i].reshape(32, 32)
         plt.imshow(eigface, cmap="gray")
         plt.title(f"{title_prefix} Visualising Eigenface {i+1}")
         plt.axis('off')
         plt.colorbar()
+        plt.tight_layout()
+        #-save the plot;
+        plot_name = f"{title_prefix}_eigenface_{i+1}.png"
+        plt.savefig(os.path.join(dir_thisPart, plot_name), dpi=300, bbox_inches="tight")
         plt.show()
 
 
@@ -51,19 +57,29 @@ def plot_eigenfaces(X_train, p):
 
 def plot_2d_pca(X_pca, y, my_label=""):
     plt.figure(figsize=(10, 6))
+    # find all the labels for the selected subjects;
     unique_labels = np.unique(y)
-    for label in unique_labels:
+    
+    # make sure each class is using a different colour; 
+    #- get number of classes; 
+    n_classes = len(unique_labels)
+    #- generate the colourmap with unique colours for the classes; 
+    cmap = cm.get_cmap('nipy_spectral', n_classes)
+    norm = mcolors.Normalize(vmin=0, vmax=n_classes-1)
+    for i, label in enumerate(unique_labels):
         idx = y == label
-        plt.scatter(X_pca[idx, 0], X_pca[idx, 1], label=f"Class {label}", alpha=0.6, s=30)
+        plt.scatter(X_pca[idx, 0], X_pca[idx, 1], color=cmap(norm(i)), label=f"Class {label}", alpha=0.6, s=30)
         
     idx_mine = y == my_label
     plt.scatter(X_pca[idx_mine, 0], X_pca[idx_mine, 1], color=colour1, marker='x', s=100, label=f"Subject {my_label}")
     plt.title(f"PCA Projection (2D) with Subject {my_label} Highlighted")
     plt.xlabel("PC1")
     plt.ylabel("PC2")
-    plt.legend(loc='best', fontsize='small', markerscale=1.5)
+    plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
     plt.grid(True)
+    plt.subplots_adjust(right=0.8)
     plt.tight_layout()
+    plt.savefig(os.path.join(dir_thisPart, f"PCA_2D_Subject{my_label}_p{X_pca.shape[1]}.png"), dpi=300, bbox_inches="tight")
     plt.show()
         
 
