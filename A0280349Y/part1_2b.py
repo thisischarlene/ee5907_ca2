@@ -87,7 +87,7 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
         
 
 def plot_3d_pca(X_pca, y, my_label="", p=""): 
-    fig = plt.figure(figsize=(16, 9))
+    fig = plt.figure(figsize=(16, 12))
     ax = fig.add_subplot(111, projection='3d')
     # find all the labels for the selected subjects;
     unique_labels = np.unique(y)
@@ -109,11 +109,16 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     ax.set_ylabel("PC2")
     ax.set_zlabel("PC3")
     #-rescale so that it doesnt look congested; 
-    ax.view_init(elev=10, azim=45)
-    ax.auto_scale_xyz(X_pca[:, 0], X_pca[:, 1], X_pca[:, 2])
-    ax.set_xlim(0, 1000)
-    ax.set_ylim(0, 1000)
-    ax.set_zlim(-4000, 4000)
+    ax.view_init(elev=25, azim=45)
+    ax.auto_scale_xyz(X_pca[:, 0], X_pca[:, 1], X_pca[:, 2])   
+    ax.set_xlim(-2000, 3600)
+    ax.set_ylim(-2300, 2300)
+    ax.set_zlim(-1500, 1300)
+    
+    print(f"xlimits (PC1): {X_pca[:, 0].min():.2f}, {X_pca[:, 0].max():.2f}")
+    print(f"ylimits (PC2): {X_pca[:, 1].min():.2f}, {X_pca[:, 1].max():.2f}")
+    print(f"zlimits (PC3): {X_pca[:, 2].min():.2f}, {X_pca[:, 2].max():.2f}")
+
 
     plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
     plt.grid(True)
