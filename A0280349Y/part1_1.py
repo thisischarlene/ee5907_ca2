@@ -120,7 +120,14 @@ def split_7030(subject_id, dir_PIE, ratio_train=0.7, seed=seed):
     dir_train = [(img, subject_id) for img in images_all[:idx_split]]
     dir_test = [(img, subject_id) for img in images_all[idx_split:]]
     return dir_train, dir_test
-    
+
+
+# save split data into <.csv>;
+def save_split(label_images, file_output, dir_results):
+    with open(file_output, "w") as f:
+        for path, label in label_images:
+            dir_rel = os.path.relpath(path, start=dir_results)
+            f.write(f"{dir_rel}, {label}\n") 
     
 
 if __name__=="__main__":
