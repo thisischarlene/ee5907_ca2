@@ -91,15 +91,15 @@ def plot_3d_lda(X_lda, y, my_label="", p=""):
     #-rescale so that it doesnt look congested; 
     ax.view_init(elev=40, azim=45)
     ax.auto_scale_xyz(X_lda[:, 0], X_lda[:, 1], X_lda[:, 2])   
-    ax.set_xlim(-2000, 3600)
-    ax.set_ylim(-2300, 2300)
-    ax.set_zlim(-1500, 1300)
-   
+    ax.set_xlim(-16, 16)
+    ax.set_ylim(-16, 16)
+    ax.set_zlim(-16, 16)
+    """
     #- to find the actual limits of the plot in 3d;
     print(f"xlimits (LD1): {X_lda[:, 0].min():.2f}, {X_lda[:, 0].max():.2f}")
     print(f"ylimits (LD2): {X_lda[:, 1].min():.2f}, {X_lda[:, 1].max():.2f}")
     print(f"zlimits (LD3): {X_lda[:, 2].min():.2f}, {X_lda[:, 2].max():.2f}")
-   
+    """
 
     plt.legend(loc='center left', fontsize='small', markerscale=1.5, bbox_to_anchor=(1.02, 0.5))
     plt.grid(True)
@@ -108,7 +108,25 @@ def plot_3d_lda(X_lda, y, my_label="", p=""):
     plt_name = f"LDA_3D_Subject{my_label}_p{X_lda.shape[1]}.png"
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"3D LDA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
-    plt.show()
+    #plt.show()
+    
+
+def visualise_fisherfaces(eigvecs, num_faces, title_prefix=""):
+    for i in range(num_faces):
+        # size of image is 32x32;
+        fisherfaces = eigvecs[:, i].reshape(32, 32)
+        plt.imshow(fisherfaces, cmap="gray")
+        plt.title(f"{title_prefix} Visualising Fisherface {i+1}")
+        plt.axis('off')
+        plt.axis('off')
+        plt.colorbar()
+        plt.tight_layout()
+        #-save the plot;
+        plt_name = f"{title_prefix}_fisherface_{i+1}.png"
+        plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
+        print(f"Fisherfaces Plot {plt_name} saved in {dir_thisPart} ... ")
+        #plt.show()
+        
 
 def main():
     # load the data from <part1_1.py> 
@@ -123,6 +141,8 @@ def main():
     plot_2d_lda(X_lda_2d, y_train, 69, 2)
     #- save the binary data;
     np.save(os.path.join(dir_thisPart, "X_lda_2.npy"), X_lda_2d)
+    #- plot the fisherface, p=2; 
+    visualise_fisherfaces(eigvecs_2, 2, "LDA_p2")
     
     
     # plot the 3d ida; 
@@ -132,6 +152,8 @@ def main():
     plot_3d_lda(X_lda_3d, y_train, 69, 3)
     #- save the binary data;
     np.save(os.path.join(dir_thisPart, "X_lda_3.npy"), X_lda_3d)
+    #- plot the fisherface, p=3; 
+    visualise_fisherfaces(eigvecs_3, 3, "LDA_p3")
 
 if __name__=="__main__":
     main()
