@@ -29,10 +29,10 @@ def main():
     A0280349Y.part1_2a.main()
     print("\napply crafted PCA function to training set with number of PCs to be 2 and 3 ...")
     A0280349Y.part1_2b.main()
-    """
     print("\napply crafted PCA function to training set with number of PCs to be 80 and 200 ...")
     A0280349Y.part1_2c.main()
     
+    """
     print("\nimplement LDA from scratch ...")
     A0280349Y.part1_3a.main()
     print("\napply crafted LDA function to training set with number of LDA projection vectors to be 2 and 3...")
