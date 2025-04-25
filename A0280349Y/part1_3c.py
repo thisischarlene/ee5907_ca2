@@ -44,7 +44,7 @@ def main():
     eigvecs_9, X_lda_9 = my_lda(X_train, y_train, p=9)
     #- save as binary file; 
     np.save(os.path.join(dir_thisPart, "X_lda_9.npy"), X_lda_9)
-    np.save(os.path.join(dir_thisPart, "eigvecs_8.npy"), eigvecs_9)
+    np.save(os.path.join(dir_thisPart, "eigvecs_9.npy"), eigvecs_9)
     
     # apply {my_pca} with p=15; 
     eigvecs_15, X_lda_15 = my_lda(X_train, y_train, p=15)
