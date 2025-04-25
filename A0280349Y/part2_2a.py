@@ -42,14 +42,15 @@ def apply_gmm(X_train, X_test, n_components=3):
     gmm = GaussianMixture(n_components=3, random_state=seed)
     
     #- train the classifier; 
-    gmm.fit(X_test)
+    gmm.fit(X_train)
     
-    #- predict the labels based on test data;
-    y_pred = gmm.predict(X_test)
+    #- predict the labels based on train + test data;
+    y_train_gmm = gmm.predict(X_train)
+    y_test_gmm = gmm.predict(X_test)
     
-    return y_pred, gmm 
+    return  y_train_gmm, y_test_gmm, gmm 
 
-def plot_2d_gmm(X_train, X_test, y_pred, my_label, title="GMM  Clustering" ):
+def plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, my_label, title=""):
     #- reduce data to 2D using PCA for visualisation;
     pca = PCA(n_components=2)
     X_train_2d = pca.fit_transform(X_train)
@@ -58,27 +59,28 @@ def plot_2d_gmm(X_train, X_test, y_pred, my_label, title="GMM  Clustering" ):
     #- plot the 2d -- copy from <part1_2b.py>; 
     plt.figure(figsize=(10, 6))
     # find all the labels for the selected subjects;
-    unique_labels = np.unique(y)
+    unique_labels = np.unique(y_train_gmm)
     
     #- make sure each class is using a different colour; 
     #-- get number of classes; 
     n_classes = len(unique_labels)
     #-- generate the colourmap with unique colours for the classes; 
-    cmap = cm.get_cmap('nipy_spectral', n_classes)
+    cmap_train = cm.get_cmap('viridis', n_classes)
+    cmap_test = cm.get_cmap('plasma', n_classes)
     norm = mcolors.Normalize(vmin=0, vmax=n_classes-1)
     
     #-- plot training data;  
     for i, label in enumerate(unique_labels): 
-        idx = y_pred == label
-        plt.scatter(X_train_2d[idx, 0], X_train_2d[idx, 1], color=cmap(norm(i)), label=f"Train Class {label}", alpha=0.6, s=20)
+        idx = y_train_gmm == label
+        plt.scatter(X_train_2d[idx, 0], X_train_2d[idx, 1], color=cmap_train(norm(i)), label=f"Train Class {label}", alpha=0.6, s=20)
         
     #-- plot testing data;  
     for i, label in enumerate(unique_labels): 
-        idx = y_pred == label
-        plt.scatter(X_test_2d[idx, 0], X_test_2d[idx, 1], color=cmap(norm(i)), label=f"Test Class {label}", alpha=0.6, s=20)
+        idx = y_test_gmm == label
+        plt.scatter(X_test_2d[idx, 0], X_test_2d[idx, 1], color=cmap_test(norm(i)), label=f"Test Class {label}", alpha=0.6, s=20)
     
     #-- highlight {mock_subject};    
-    idx_mine = y_pred == my_label
+    idx_mine = y_test_gmm == my_label
     plt.scatter(X_test_2d[idx_mine, 0], X_test_2d[idx_mine, 1], color='black', marker='x', s=100, label=f"Subject {my_label}")
     
     plt.title(f"{title} (2D) with Subject {my_label} Highlighted")
@@ -91,7 +93,7 @@ def plot_2d_gmm(X_train, X_test, y_pred, my_label, title="GMM  Clustering" ):
     plt_name = f"{title}_2D_Subject{my_label}.png"
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"2D GMM Clustering Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
-    #plt.show()
+    plt.show()
     plt.close()
     
      
@@ -100,25 +102,15 @@ def main():
     X_train = np.load(os.path.join(dir_part1_1, "X_train.npy"))
     y_train = np.load(os.path.join(dir_part1_1, "y_train.npy"))
     
-    
-    #- load the PCA-transformed data for p=80, p=200;
-    X_pca_80 = np.load(os.path.join(dir_part1_2c, "X_pca_80.npy"))
-    eigvecs_80 = np.load(os.path.join(dir_part1_2c, "eigvecs_80.npy"))
-    X_pca_200 = np.load(os.path.join(dir_part1_2c, "X_pca_200.npy"))
-    eigvecs_200 = np.load(os.path.join(dir_part1_2c, "eigvecs_200.npy"))
-
-    
     #- load the testing data from <part1_1.py> 
     X_test = np.load(os.path.join(dir_part1_1, "X_test.npy"))
     y_test = np.load(os.path.join(dir_part1_1, "y_test.npy"))
+
+    #- apply GMM and predicted labels for test data;
+    y_train_gmm, y_test_gmm, gmm = apply_gmm(X_train, X_test, 3)
     
-    #- to get PCA-transformed test data;
-    X_pca_80_test = X_test @ eigvecs_80
-    X_pca_200_test = X_test @ eigvecs_200  
-    
-    #- apply KNN for PCA-transformed test data;
-    apply_gmm(X_pca_80, y_train, X_pca_80_test, y_test, k=1)
-    apply_gmm(X_pca_200, y_train, X_pca_200_test, y_test, k=1)
+    #- plot the GMM Clustering in 2d; 
+    plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, 69, "GMM Clustering")
 
 if __name__ == "__main__":
     main()
