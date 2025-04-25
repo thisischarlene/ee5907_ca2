@@ -38,7 +38,7 @@ os.makedirs(dir_thisPart, exist_ok=True)
 
 def apply_knn(X_train, y_train, X_test, y_test, k=1):
     #- initialise KNN classifier; 
-    knn = KNeighborsClassifier(n_neighbours=k)
+    knn = KNeighborsClassifier(n_neighbors=k)
     
     #- train the classifier; 
     knn.fit(X_train, y_train)
