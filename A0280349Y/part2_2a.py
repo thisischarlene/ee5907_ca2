@@ -66,7 +66,7 @@ def plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, my_label, title=""):
     n_classes = len(unique_labels)
     #-- generate the colourmap with unique colours for the classes; 
     cmap_train = cm.get_cmap('viridis', n_classes)
-    cmap_test = cm.get_cmap('plasma', n_classes)
+    cmap_test = cm.get_cmap('coolwarm', n_classes)
     norm = mcolors.Normalize(vmin=0, vmax=n_classes-1)
     
     #-- plot training data;  
@@ -77,7 +77,7 @@ def plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, my_label, title=""):
     #-- plot testing data;  
     for i, label in enumerate(unique_labels): 
         idx = y_test_gmm == label
-        plt.scatter(X_test_2d[idx, 0], X_test_2d[idx, 1], color=cmap_test(norm(i)), label=f"Test Class {label}", alpha=0.6, s=20)
+        plt.scatter(X_test_2d[idx, 0], X_test_2d[idx, 1], color=cmap_test(norm(i)), label=f"Test Class {label}", alpha=1, s=20)
     
     #-- highlight {mock_subject};    
     idx_mine = y_test_gmm == my_label
