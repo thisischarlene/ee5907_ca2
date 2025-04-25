@@ -27,3 +27,5 @@ from A0280349Y.part1_2a import *
 from A0280349Y.part1_2b import *
 from A0280349Y.part1_2c import *
 from A0280349Y.part1_3a import *
+from A0280349Y.part1_3b import *
+from A0280349Y.part1_3c import *

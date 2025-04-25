@@ -35,14 +35,14 @@ def main():
    
     print("\npart1_3a: implement LDA from scratch ...")
     A0280349Y.part1_3a.main()
-    """
     print("\npart1_3b: apply crafted LDA function to training set with number of LDA projection vectors to be 2 and 3...")
     A0280349Y.part1_3b.main()
+    
     print("\npart1_3c: apply crafted LDA function to training set with number of LDA projection vectors to be 9 and 15 ...")
     A0280349Y.part1_3c.main()
     print_with_star("all scripts for part1 have been executed ... ")
     
-    
+    """
     # part2 of assignment2;
     print("\npart2_1a: apply KNN to PCA transformed testing dataset for p=80 and p=200 with k=1 ...")
     A0280349Y.part2_1a.main()
