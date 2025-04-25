@@ -101,6 +101,7 @@ def plot_selected(dir_images, subject_id, dir_save=None):
         print_with_plus(f"array of images saved to {dir_save}")
         
     #plt.show()
+    plt.close()
     
 
 # split selected images into 70/30 for training and testing;

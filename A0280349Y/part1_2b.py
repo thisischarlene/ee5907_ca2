@@ -55,6 +55,7 @@ def visualise_eigenfaces(eigvecs, num_faces, title_prefix=""):
 def plot_eigenfaces(X_train, p):
     eigvecs_top, _ = my_pca(X_train, p=p)
     visualise_eigenfaces(eigvecs_top, num_faces=p, title_prefix=f"PCA (p={p})")
+    plt.close()
     
 
 def plot_2d_pca(X_pca, y, my_label="", p=""):
