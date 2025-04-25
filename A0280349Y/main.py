@@ -42,10 +42,11 @@ def main():
     A0280349Y.part1_3c.main()
     print_with_star("all scripts for part1 have been executed ... ")
     
-    """
+  
     # part2 of assignment2;
     print("\npart2_1a: apply KNN to PCA transformed testing dataset for p=80 and p=200 with k=1 ...")
     A0280349Y.part2_1a.main()
+    """
     print("\npart2_1b: apply KNN to PCA transformed testing dataset for p=9 and p=15 with k=1 ...")
     A0280349Y.part2_1b.main()
     
