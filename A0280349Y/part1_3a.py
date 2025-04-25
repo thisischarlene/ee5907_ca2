@@ -30,8 +30,33 @@ assignment_name = os.path.basename(__file__).replace(".py", "")
 dir_thisPart = dir_part1_3a
 os.makedirs(dir_thisPart, exist_ok=True)
 
-def my_lda(X, y, p): 
-
+def my_lda(X, y, p):
+    #-find all unique class labels aka {subjects_labels}; 
+    classes = np.unique(y)
+    #- get number of features; 
+    n_features = X.shape[1]
+    #- to find the distance between each class' local mean and the global mean; 
+    mean_overall = np.mean(X, axis=0)
+    
+    #- compute the noise variance within the classes;
+    scatter_within = np.zeros=((n_features, n_features))
+    #- compute the signal variance between the classes;
+    scatter_between = np.zeros=((n_features, n_features))
+    
+    #- processing one class at a time; 
+    for cls in classes:
+        #-- get all images from this class aka the subject; 
+        X_classes = X[y == cls]
+        #-- mean of all faces; 
+        mean_classes = np.mean(X_classes, axis=0)
+        #-- compute within-class scatter; how much it spreads around local class mean; 
+        scatter_within += np.dot((X_classes - mean_classes).T, (X_classes - mean_classes))
+        #-- calculate how many samples in the class;
+        n_classes = X_classes.shape[0]
+        #-- compute the difference between local mean and global mean;
+        mean_diff = (mean_classes - mean_overall).reshape(-1, 1)
+        #-- compute between-class scatter; distance between local class mean and global mean via class size weights;
+        scatter_between += n_classes * np.dot(mean_diff, mean_diff.T)
 
 def main():
     print("LDA function, {my_lda}, has been defined ...")
