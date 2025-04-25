@@ -25,3 +25,4 @@ from A0280349Y.config import *
 from A0280349Y.part1_1 import *
 from A0280349Y.part1_2a import *
 from A0280349Y.part1_2b import *
+from A0280349Y.part1_2c import *
