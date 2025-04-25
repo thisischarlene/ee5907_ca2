@@ -41,13 +41,13 @@ def main():
     y_train = np.load(os.path.join(dir_part1_1, "y_train.npy"))
     
     # apply {my_lda} with p=9; 
-    eigvecs_9, X_lda_9 = my_lda(X_train, p=9)
+    eigvecs_9, X_lda_9 = my_lda(X_train, y_train, p=9)
     #- save as binary file; 
     np.save(os.path.join(dir_thisPart, "X_lda_9.npy"), X_lda_9)
     np.save(os.path.join(dir_thisPart, "eigvecs_8.npy"), eigvecs_9)
     
     # apply {my_pca} with p=15; 
-    eigvecs_15, X_lda_15 = my_lda(X_train, p=15)
+    eigvecs_15, X_lda_15 = my_lda(X_train, y_train, p=15)
     #- save as binary file; 
     np.save(os.path.join(dir_thisPart, "X_lda_15.npy"), X_lda_15)
     np.save(os.path.join(dir_thisPart, "eigvecs_15.npy"), eigvecs_15)
