@@ -49,6 +49,7 @@ def visualise_eigenfaces(eigvecs, num_faces, title_prefix=""):
         plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
         print(f"Eigenfaces Plot {plt_name} saved in {dir_thisPart} ... ")
         #plt.show()
+        plt.close()
 
 
 def plot_eigenfaces(X_train, p):
@@ -84,6 +85,7 @@ def plot_2d_pca(X_pca, y, my_label="", p=""):
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"2D PCA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
     #plt.show()
+    plt.close()
         
 
 def plot_3d_pca(X_pca, y, my_label="", p=""): 
@@ -129,6 +131,8 @@ def plot_3d_pca(X_pca, y, my_label="", p=""):
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"3D PCA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
     #plt.show()
+    plt.close()
+    
 
 def main():
     # load the data from <part1_1.py> 

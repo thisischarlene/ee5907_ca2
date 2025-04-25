@@ -64,6 +64,7 @@ def plot_2d_lda(X_lda, y, my_label="", p=""):
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"2D LDA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
     #plt.show()
+    plt.close()
         
 
 def plot_3d_lda(X_lda, y, my_label="", p=""): 
@@ -109,6 +110,7 @@ def plot_3d_lda(X_lda, y, my_label="", p=""):
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"3D LDA Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
     #plt.show()
+    plt.close()
     
 
 def visualise_fisherfaces(eigvecs, num_faces, title_prefix=""):
@@ -126,6 +128,7 @@ def visualise_fisherfaces(eigvecs, num_faces, title_prefix=""):
         plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
         print(f"Fisherfaces Plot {plt_name} saved in {dir_thisPart} ... ")
         #plt.show()
+        plt.close()
         
 
 def main():
