@@ -39,9 +39,9 @@ def my_lda(X, y, p):
     mean_overall = np.mean(X, axis=0)
     
     #- compute the noise variance within the classes;
-    scatter_within = np.zeros=((n_features, n_features))
+    scatter_within = np.zeros((n_features, n_features))
     #- compute the signal variance between the classes;
-    scatter_between = np.zeros=((n_features, n_features))
+    scatter_between = np.zeros((n_features, n_features))
     
     #- processing one class at a time; 
     for cls in classes:
@@ -66,7 +66,9 @@ def my_lda(X, y, p):
     eigvecs_top = eigvecs[:, idx_sorted[:p]].real
     
     #- to get LDA-transformed data; 
-    X_ida = X @ eigvecs_top
+    X_lda = X @ eigvecs_top
+    
+    return eigvecs_top, X_lda
     
 
 def main():
