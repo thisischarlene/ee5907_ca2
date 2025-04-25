@@ -57,6 +57,17 @@ def my_lda(X, y, p):
         mean_diff = (mean_classes - mean_overall).reshape(-1, 1)
         #-- compute between-class scatter; distance between local class mean and global mean via class size weights;
         scatter_between += n_classes * np.dot(mean_diff, mean_diff.T)
+        
+    #- solve the general eigenvalue; 
+    eigvals, eigvecs = np.linalg.eig(np.linalg.pinv(scatter_within).dot(scatter_between))
+    
+    #- sort the eigenvalues in descending order to keep top p; 
+    idx_sorted = np.argsort(-eigvals.real)
+    eigvecs_top = eigvecs[:, idx_sorted[:p]].real
+    
+    #- to get LDA-transformed data; 
+    X_ida = X @ eigvecs_top
+    
 
 def main():
     print("LDA function, {my_lda}, has been defined ...")
