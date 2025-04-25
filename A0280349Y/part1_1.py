@@ -219,6 +219,31 @@ def main():
     print_with_plus(f"saved y_train with shape {y_train.shape}")
     
     
+    # convert the images to X_test and y_test for <part2_1a.py>;
+    X_test = []
+    y_test = []
+    
+    #- loop through each image in the training dataset;
+    for path, label in images_test:
+        img = mping.imread(path)
+        if img.ndim == 3: #- convert to grayscale;
+            img = img.mean(axis=-1)
+        #-- flatten image to get the 1D, 1024-dimension vector;
+        X_test.append(img.flatten())
+        y_test.append(label)
+    
+    #- save the data as a matrix; 
+    X_test = np.array(X_test)
+    y_test = np.array(y_test)
+    
+    #- save as binary file,, <.npy>, for other assignment parts; 
+    np.save(os.path.join(dir_thisPart, "X_test.npy"), X_test)
+    np.save(os.path.join(dir_thisPart, "y_test.npy"), y_test)
+    #-- verbose; 
+    print_with_plus(f"saved X_test with shape {X_test.shape}")
+    print_with_plus(f"saved y_test with shape {y_test.shape}")
+    
+    
     # put right at the bottom because plot func will stop funcs from running till plot closes;
     # create file name for layout of the 10 selected images; 
     dir_savedImages = os.path.join(dir_thisPart, f"subject{subjects_mock}_grid.png")
