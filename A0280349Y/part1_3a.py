@@ -71,6 +71,7 @@ def my_lda(X, y, p):
 
 def main():
     print("LDA function, {my_lda}, has been defined ...")
+    
 
 if __name__=="__main__":
     main()
