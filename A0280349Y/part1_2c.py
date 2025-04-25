@@ -45,6 +45,12 @@ def main():
     #- save as binary file; 
     np.save(os.path.join(dir_thisPart, "X_pca_80.npy"), X_pca_80)
     np.save(os.path.join(dir_thisPart, "eigvecs_80.npy"), eigvecs_80)
+    
+    # apply {my_pca} with p=200; 
+    eigvecs_200, X_pca_200 = my_pca(X_train, p=200)
+    #- save as binary file; 
+    np.save(os.path.join(dir_thisPart, "X_pca_200.npy"), X_pca_200)
+    np.save(os.path.join(dir_thisPart, "eigvecs_200.npy"), eigvecs_200)
    
 
 if __name__=="__main__":
