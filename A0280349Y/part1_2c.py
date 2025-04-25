@@ -39,6 +39,12 @@ def main():
     # load the data from <part1_1.py> 
     X_train = np.load(os.path.join(dir_part1_1, "X_train.npy"))
     y_train = np.load(os.path.join(dir_part1_1, "y_train.npy"))
+    
+    # apply {my_pca} with p=80; 
+    eigvecs_80, X_pca_80 = my_pca(X_train, p=80)
+    #- save as binary file; 
+    np.save(os.path.join(dir_thisPart, "X_pca_80.npy"), X_pca_80)
+    np.save(os.path.join(dir_thisPart, "eigvecs_80.npy"), eigvecs_80)
    
 
 if __name__=="__main__":
