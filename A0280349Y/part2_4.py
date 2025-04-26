@@ -70,6 +70,12 @@ def load_data():
     X_test = np.load(os.path.join(dir_part1_1, "X_test.npy"))
     y_test = np.load(os.path.join(dir_part1_1, "y_test.npy"))
     
+    # re-map the 26 subject labels to from 0 to 25 to map the number of classes in the final layer;
+    unique_labels = np.unique(y_train)
+    label_mapping = {old_label: new_label for new_label, old_label in enumerate(unique_labels)}
+    y_train = np.array([label_mapping[label] for label in y_train])
+    y_test = np.array([label_mapping[label] for label in y_test])
+    
     # reshape (N, 32, 32) and add channel dimension (N, 1, 32, 32)
     X_train = X_train.reshape(-1, 1, 32, 32)
     X_test = X_test.reshape(-1, 1, 32, 32)
