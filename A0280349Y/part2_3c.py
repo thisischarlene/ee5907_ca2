@@ -44,8 +44,8 @@ def main():
     X_train, y_train, X_test, y_test = load_data()
     C_values = [1e-2, 1e-1, 1]
     for p in [80, 200]:
-        X_train_pca, X_test_pca = reduce_lda(X_train, X_test, p)
-        run_experiments(X_train_pca, y_train, X_test_pca, y_test, p, C_values)
+        X_train_pca, X_test_pca = reduce_lda(X_train, y_train, X_test, p)
+        run_experiments(X_train_pca, y_train, X_test_pca, y_test, C_values)
 
 if __name__ == "__main__":
     main()

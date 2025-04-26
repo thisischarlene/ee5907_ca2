@@ -47,7 +47,7 @@ def apply_gmm(X_train, X_test, n_components=3):
     
     return  y_train_gmm, y_test_gmm, gmm 
 
-def plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, my_label, title=""):
+def plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, y_test, my_label, title=""):
     #- reduce data to 2D using PCA for visualisation;
     pca = PCA(n_components=2)
     X_train_2d = pca.fit_transform(X_train)
@@ -70,6 +70,7 @@ def plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, my_label, title=""):
     for i, label in enumerate(unique_labels): 
         idx = y_train_gmm == label
         plt.scatter(X_train_2d[idx, 0], X_train_2d[idx, 1], color=cmap_train(norm(i)), label=f"Train Class {label}", alpha=0.6, s=20)
+
         
     #-- plot testing data;  
     for i, label in enumerate(unique_labels): 
@@ -77,7 +78,7 @@ def plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, my_label, title=""):
         plt.scatter(X_test_2d[idx, 0], X_test_2d[idx, 1], color=cmap_test(norm(i)), label=f"Test Class {label}", alpha=1, s=20)
     
     #-- highlight {mock_subject};    
-    idx_mine = y_test_gmm == my_label
+    idx_mine = y_test == my_label
     plt.scatter(X_test_2d[idx_mine, 0], X_test_2d[idx_mine, 1], color='black', marker='x', s=100, label=f"Subject {my_label}")
     
     plt.title(f"{title} (2D) with Subject {my_label} Highlighted")
@@ -107,7 +108,7 @@ def main():
     y_train_gmm, y_test_gmm, gmm = apply_gmm(X_train, X_test, 3)
     
     #- plot the GMM Clustering in 2d; 
-    plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, 69, "GMM Clustering")
+    plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, y_test, 69, "GMM Clustering")
 
 if __name__ == "__main__":
     main()
