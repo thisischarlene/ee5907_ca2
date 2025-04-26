@@ -37,39 +37,6 @@ assignment_name = os.path.basename(__file__).replace(".py", "")
 dir_thisPart = dir_part2_2b
 os.makedirs(dir_thisPart, exist_ok=True)
 
-def map_gmm_labels(y_true, y_pred):
-    labels = np.zeros_like(y_pred)
-    for i in np.unique(y_pred):
-        mask = (y_pred == i)
-        labels[mask] = mode(y_true[mask], keepdims=True)[0]
-    return labels
-
-def evaluate_gmm(y_true, y_pred, title=""):
-    y_pred_mapped = map_gmm_labels(y_true, y_pred)
-    cm = confusion_matrix(y_true, y_pred_mapped)
-    acc = np.trace(cm) / np.sum(cm)
-
-    #-- save confusion matrix;
-    plt.figure(figsize=(10, 6))
-    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
-    plt.title(f"Confusion Matrix: {title}")
-    plt.colorbar()
-    tick_marks = np.arange(len(np.unique(y_true)))
-    plt.xticks(tick_marks, tick_marks)
-    plt.yticks(tick_marks, tick_marks)
-    plt.xlabel('Predicted Label')
-    plt.ylabel('True Label')
-    plt.tight_layout()
-    plt_name = f"ConfusionMatrix_{title}.png"
-    plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
-    print(f"Confusion Matrix {plt_name} saved in {dir_thisPart} ...")
-    #plt.show()
-    plt.close()
-
-    print(f"Accuracy: {acc:.4f}")
-    return cm, acc
-    
-
 
 def main():
     # load the training data from <part1_1.py> 
@@ -95,10 +62,7 @@ def main():
         y_train_gmm, y_test_gmm, gmm = apply_gmm(X_train_pca, X_test_pca, 3)
 
         #- plot 2D visualization;
-        plot_2d_gmm(X_train_pca, X_test_pca, y_train_gmm, y_test_gmm, 69, f"GMM Clustering p{p}")
-
-        #- evaluate;
-        evaluate_gmm(y_test, y_test_gmm, title=f"GMM_p{p}")
+        plot_2d_gmm(X_train_pca, X_test_pca, y_train_gmm, y_test_gmm, y_test, 69, f"GMM Clustering p{p}")
 
 if __name__ == "__main__":
     main()
