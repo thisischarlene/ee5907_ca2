@@ -39,7 +39,7 @@ def load_data():
 
 
 def train_svm(X_train, y_train, C):
-    clf = LinearSVC(C=C, max_iter=10000, random_state=seed)
+    clf = LinearSVC(C=C, max_iter=30000, random_state=seed)
     clf.fit(X_train, y_train)
     return clf
     
