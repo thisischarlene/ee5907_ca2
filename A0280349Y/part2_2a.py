@@ -93,7 +93,7 @@ def plot_2d_gmm(X_train, X_test, y_train_gmm, y_test_gmm, my_label, title=""):
     plt_name = f"{title}_2D_Subject{my_label}.png"
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"2D GMM Clustering Scatter Plot {plt_name} saved in {dir_thisPart} ... ")
-    plt.show()
+    #plt.show()
     plt.close()
     
      

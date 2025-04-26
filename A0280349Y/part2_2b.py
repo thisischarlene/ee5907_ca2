@@ -63,7 +63,7 @@ def evaluate_gmm(y_true, y_pred, title=""):
     plt_name = f"ConfusionMatrix_{title}.png"
     plt.savefig(os.path.join(dir_thisPart, plt_name), dpi=300, bbox_inches="tight")
     print(f"Confusion Matrix {plt_name} saved in {dir_thisPart} ...")
-    plt.show()
+    #plt.show()
     plt.close()
 
     print(f"Accuracy: {acc:.4f}")
