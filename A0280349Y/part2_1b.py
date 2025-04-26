@@ -17,15 +17,10 @@
 
 
 import os
-import datetime
 import numpy as np 
 import matplotlib.pyplot as plt
 import matplotlib.image as mping
-import random
 from A0280349Y.config import *
-import csv
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
 from A0280349Y.part1_3c import *
 from A0280349Y.part2_1a import *
 

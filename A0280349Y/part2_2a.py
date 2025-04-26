@@ -17,13 +17,10 @@
 
 
 import os
-import datetime
 import numpy as np 
 import matplotlib.pyplot as plt
 import matplotlib.image as mping
-import random
 from A0280349Y.config import *
-import csv
 from sklearn.mixture import GaussianMixture
 from sklearn.decomposition import PCA
 from A0280349Y.part1_1 import *
