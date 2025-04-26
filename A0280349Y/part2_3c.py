@@ -3,7 +3,7 @@
 
 """
 /*_____________________________EE5907_CA2_A0280349Y_____________________________*\
-<part2_3b.py> { 
+<part2_3c.py> { 
     context         ; 
     purpose         applying SVM for LDA; 
     used in         parent folder [A0280349Y]; 
@@ -11,7 +11,7 @@
     os              windows 10;
     ref(s)          ;       
     note            for master branch only; 
-} // "<part2_3b.py>"
+} // "<part2_3c.py>"
 /*_____________________________EE5907_CA2_A0280349Y_____________________________*\
 """
 
@@ -43,7 +43,7 @@ def reduce_lda(X_train, y_train, X_test, p):
 def main():
     X_train, y_train, X_test, y_test = load_data()
     C_values = [1e-2, 1e-1, 1]
-    for p in [80, 200]:
+    for p in [9, 15]:
         X_train_pca, X_test_pca = reduce_lda(X_train, y_train, X_test, p)
         run_experiments(X_train_pca, y_train, X_test_pca, y_test, C_values)
 
