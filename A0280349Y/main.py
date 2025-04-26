@@ -46,7 +46,6 @@ def main():
     # part2 of assignment2;
     print("\npart2_1a: apply KNN to PCA transformed testing dataset for p=80 and p=200 with k=1 ...")
     A0280349Y.part2_1a.main()
-    """
     print("\npart2_1b: apply KNN to PCA transformed testing dataset for p=9 and p=15 with k=1 ...")
     A0280349Y.part2_1b.main()
     
@@ -61,14 +60,11 @@ def main():
     A0280349Y.part2_3b.main()
     print("\npart2_3c: apply linear SVM to LDA transformed feature representation for p=9 and p=15 ...")
     A0280349Y.part2_3c.main()
-    
+   
     print("\npart2_4:use raw training face images to train CNN with 2 convolutional layers ...")
     A0280349Y.part2_4.main()
     print_with_star("all scripts for part2 have been executed ... ")
-   
     
-    """
-
 
 if __name__ == "__main__":
     main()
