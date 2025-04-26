@@ -5,7 +5,7 @@
 /*_____________________________EE5907_CA2_A0280349Y_____________________________*\
 <part2_2a.py> { 
     context         ; 
-    purpose         applying GMM to PCA; 
+    purpose         applying GMM with 3 Gaussian components; 
     used in         parent folder [A0280349Y]; 
     py version      3.10; 
     os              windows 10;
